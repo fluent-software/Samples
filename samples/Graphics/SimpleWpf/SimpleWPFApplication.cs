@@ -10,7 +10,6 @@ using nanoFramework.Presentation.Media;
 using nanoFramework.Presentation.Shapes;
 using nanoFramework.UI;
 using nanoFramework.UI.Threading;
-using nanoFramework.Runtime.Events;
 using SimpleWpf;
 
 namespace SimpleWPF
@@ -34,8 +33,8 @@ namespace SimpleWPF
 
             // Make the window visible and the size of the LCD
             this.Visibility = Visibility.Visible;
-            this.Width = SystemMetrics.ScreenWidth;
-            this.Height = SystemMetrics.ScreenHeight;
+            this.Width = 1; // SystemMetrics.ScreenWidth;
+            this.Height = 1; // SystemMetrics.ScreenHeight;
             Buttons.Focus(this); // Set focus to this window
         }
 
@@ -61,7 +60,7 @@ namespace SimpleWPF
     internal sealed class MainMenuWindow : PresentationWindow
     {
         // This member keeps the menu item panel around.
-        private MenuItemPanel m_MenuItemPanel;
+        private readonly MenuItemPanel m_MenuItemPanel;
 
         /// <summary>
         /// Constructs a MainMenuWindow for the specified program.
@@ -71,11 +70,11 @@ namespace SimpleWPF
             : base(program)
         {
             // Create some colors for the text items.
-            Color instructionTextColor = ColorUtility.ColorFromRGB(255, 255, 255);
-            Color backgroundColor = ColorUtility.ColorFromRGB(0, 0, 0);
-            Color upperBackgroundColor = ColorUtility.ColorFromRGB(69, 69, 69);
-            Color unselectedItemColor = ColorUtility.ColorFromRGB(192, 192, 192);
-            Color selectedItemColor = ColorUtility.ColorFromRGB(128, 128, 128);
+            //Color instructionTextColor = ColorUtility.ColorFromRGB(255, 255, 255);
+            //Color backgroundColor = ColorUtility.ColorFromRGB(0, 0, 0);
+            //Color upperBackgroundColor = ColorUtility.ColorFromRGB(69, 69, 69);
+            //Color unselectedItemColor = ColorUtility.ColorFromRGB(192, 192, 192);
+            //Color selectedItemColor = ColorUtility.ColorFromRGB(128, 128, 128);
 
             // The Main window contains a veritcal StackPanel.
             StackPanel panel = new StackPanel(Orientation.Vertical);
@@ -283,7 +282,7 @@ namespace SimpleWPF
         public ScrollerText(string text, Font font, Color color)
             : base()
         {
-            int pos = 0;
+            int pos; // = 0;
 
             // Break the text up if it contains CR/LF pairs.
             while ((pos = text.IndexOf("\r\n")) > -1)
@@ -343,7 +342,7 @@ namespace SimpleWPF
         // The important member functions are the ones that control the scrolling
         // The TextScrollViewer class provides easy access to those scrolling
         // functions with the 4 following member functions.
-        private ScrollViewer _viewer;
+        private readonly ScrollViewer _viewer;
 
         /// <summary>
         /// Scroll one line up.
@@ -394,9 +393,11 @@ namespace SimpleWPF
 
             // Create the ScrollText object using the parameters passed into the 
             // constructor and then set other important member values.
-            ScrollText = new ScrollerText(text, font, color);
-            ScrollText.HorizontalAlignment = HorizontalAlignment.Left;
-            ScrollText.VerticalAlignment = VerticalAlignment.Top;
+            ScrollText = new ScrollerText(text, font, color)
+            {
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Top
+            };
 
             // Set the child of the viewer to be the ScrollText object.
             this._viewer.Child = ScrollText;
@@ -449,7 +450,7 @@ namespace SimpleWPF
             Pen pen = new Pen(ColorUtility.ColorFromRGB(64, 64, 64));
 
             // Draw the horizontal scroll bar.
-            int hOffset = (int)(_viewer.HorizontalOffset * _hScrollRatio);
+           // int hOffset = (int)(_viewer.HorizontalOffset * _hScrollRatio);
             dc.DrawRectangle(brush, pen, 0, Height - _hScrollHeight, _hScrollWidth, _hScrollHeight);
             dc.DrawRectangle(sliderBrush, pen, (int)(_viewer.HorizontalOffset * _hScrollRatio), Height - _hScrollHeight, _vScrollWidth, _hScrollHeight);
 
@@ -466,7 +467,7 @@ namespace SimpleWPF
     internal sealed class ScrollPanelDemo : PresentationWindow
     {
         // This member is the text scroller helper class defined above.
-        TextScrollViewer _viewer;
+        readonly TextScrollViewer _viewer;
 
         /// <summary>
         /// Constructs a ScrollPanelDemo for the specified program.
@@ -479,18 +480,22 @@ namespace SimpleWPF
             StackPanel panel = new StackPanel(Orientation.Vertical);
 
             // Create the text scroll view and set all of its properties.
-            _viewer = new TextScrollViewer(Resource.GetString(Resource.StringResources.ScrollableText), MySimpleWPFApplication.NinaBFont, Color.Black);
-            _viewer.Width = this.Width;
-            // Make room for the title bar.
-            _viewer.Height = this.Height - 25;
-            _viewer.HScrollHeight = 10;
-            _viewer.VScrollWidth = 10;
-            _viewer.HorizontalAlignment = HorizontalAlignment.Left;
-            _viewer.VerticalAlignment = VerticalAlignment.Top;
+            _viewer = new TextScrollViewer(Resource.GetString(Resource.StringResources.ScrollableText), MySimpleWPFApplication.NinaBFont, Color.Black)
+            {
+                Width = this.Width,
+                // Make room for the title bar.
+                Height = this.Height - 25,
+                HScrollHeight = 10,
+                VScrollWidth = 10,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Top
+            };
 
             // Create the title text
-            Text title = new Text(MySimpleWPFApplication.NinaBFont, Resource.GetString(Resource.StringResources.ScrollableTextTitle));
-            title.ForeColor = Color.White;
+            Text title = new Text(MySimpleWPFApplication.NinaBFont, Resource.GetString(Resource.StringResources.ScrollableTextTitle))
+            {
+                ForeColor = Color.White
+            };
 
             // Add the elements to the stack panel.
             panel.Children.Add(title);
@@ -549,7 +554,7 @@ namespace SimpleWPF
     /// </summary>
     internal sealed class FreeDrawingDemo : PresentationWindow
     {
-        private Random _random;
+        private readonly Random _random;
 
         /// <summary>
         /// Constructs a FreeDrawingDemo, using the specified program.
@@ -608,8 +613,8 @@ namespace SimpleWPF
     {
         // Private members.
         private int _currentChild = 0;
-        private int _width;
-        private int _height;
+        private readonly int _width;
+        private readonly int _height;
         private int _animationStep;
 
         // This array holds the MenuItems.
@@ -712,7 +717,7 @@ namespace SimpleWPF
             int y = 6;
 
             // Set the scaling of the current MenuItem.
-            int scale = 0;
+            int scale; // = 0;
 
             // Set the scaling offset based on the animation step.
             int scaleOffset = Mathematics.Abs(_animationStep);
@@ -747,7 +752,7 @@ namespace SimpleWPF
                 }
 
                 // Variable to point to the current MenuItem we want to draw.
-                MenuItem menuItem = null;
+                MenuItem menuItem; // = null;
 
                 // Get the correct MenuItem from the array based on the value of i.
                 // Because we are looking 2 left and 2 right, if the current child
@@ -816,8 +821,10 @@ namespace SimpleWPF
                 // The first time through, create the timer.
                 if (_animationTimer == null)
                 {
-                    _animationTimer = new DispatcherTimer(this.Dispatcher);
-                    _animationTimer.Interval = new TimeSpan(0, 0, 0, 0, timerInterval);
+                    _animationTimer = new DispatcherTimer(this.Dispatcher)
+                    {
+                        Interval = new TimeSpan(0, 0, 0, 0, timerInterval)
+                    };
                     _animationTimer.Tick += new EventHandler(OnAnimationTimer);
                 }
 
@@ -894,25 +901,25 @@ namespace SimpleWPF
         // Private members
 
         // Small image because you can't stretch an image smaller, only larger.
-        private Bitmap _imageSmall;
+        private readonly Bitmap _imageSmall;
 
         // Larger version so it looks good instead of stretching the small one.
-        private Bitmap _image;
+        private readonly Bitmap _image;
 
         // Description of this MenuItem.
         private string _description;
 
         // Array of widths to save time by pre-calculating them.
-        private int[] _widthSteps;
+        private readonly int[] _widthSteps;
 
         // Array of heights to save time by pre-calculating them.
-        private int[] _heightSteps;
+        private readonly int[] _heightSteps;
 
         // Width of large image.
-        private int _largeWidth;
+        private readonly int _largeWidth;
 
         // Height of large image.
-        private int _largeHeight;
+        private readonly int _largeHeight;
 
         /// <summary>
         /// The default constructor.
@@ -1004,8 +1011,8 @@ namespace SimpleWPF
                     }
                     else
                     {
-                        int wDiff = _image.Width - _imageSmall.Width;
-                        int hDiff = _image.Height - _imageSmall.Height;
+                        //int wDiff = _image.Width - _imageSmall.Width;
+                        //int hDiff = _image.Height - _imageSmall.Height;
 
                         Width = _imageSmall.Width + _widthSteps[scale];
                         Height = _imageSmall.Height + _heightSteps[scale];

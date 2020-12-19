@@ -18,10 +18,10 @@ namespace SimpleWPF
     {
         public readonly Dispatcher Dispatcher;
 
-        private ButtonPad[] buttons;
-        private DispatcherOperationCallback callback;
-        private InputProviderSite site;
-        private PresentationSource source;
+        //private readonly ButtonPad[] buttons;
+        private readonly DispatcherOperationCallback callback;
+        private readonly InputProviderSite site;
+        private readonly PresentationSource source;
         private readonly GpioController Gpio = GpioController.GetDefault();
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace SimpleWPF
                 new ButtonPad(this, Button.VK_DOWN  , pinDown),
             };
 
-            this.buttons = buttons;
+            //this.buttons = buttons;
         }
 
         /// <summary>
@@ -86,9 +86,9 @@ namespace SimpleWPF
         /// </summary>
         internal class ButtonPad : IDisposable
         {
-            private Button button;
-            private GPIOButtonInputProvider sink;
-            private ButtonDevice buttonDevice = null;
+            private readonly Button button;
+            private readonly GPIOButtonInputProvider sink;
+            private readonly ButtonDevice buttonDevice = null;
 
             /// <summary>
             /// Constructs a ButtonPad object that handles the emulated 

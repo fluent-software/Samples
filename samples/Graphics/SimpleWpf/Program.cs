@@ -31,7 +31,7 @@ namespace SimpleWpf
             mainWindow = new MainMenuWindow(myApplication);
 
             // Create the object that configures the GPIO pins to buttons.
-            GPIOButtonInputProvider inputProvider = new GPIOButtonInputProvider(null);
+            //GPIOButtonInputProvider inputProvider = new GPIOButtonInputProvider(null);
 
             // Load the fonts.
             NinaBFont = Resource.GetFont(Resource.FontResources.NinaB);

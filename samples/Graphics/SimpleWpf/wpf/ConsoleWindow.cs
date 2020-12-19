@@ -1,43 +1,49 @@
 using nanoFramework.Presentation;
 using nanoFramework.Presentation.Controls;
 using nanoFramework.Presentation.Media;
-using nanoFramework.Runtime.Events;
 using SimpleWpf;
+using System;
 
 namespace nanoFramework.UI.Console
 {
     public class ConsoleWindow : Window
     {
-        private Font Small =  Resource.GetFont(Resource.FontResources.small);
-        private Font CourierRegular10 = Resource.GetFont(Resource.FontResources.courierregular10);
-        private Font NinaB = Resource.GetFont(Resource.FontResources.NinaB);
+        private readonly Font Small =  Resource.GetFont(Resource.FontResources.small);
+        private readonly Font CourierRegular10 = Resource.GetFont(Resource.FontResources.courierregular10);
+        //private readonly Font NinaB = Resource.GetFont(Resource.FontResources.NinaB);
 
-        private TextFlow log;
-        private Text timeText;
-        private Brush solidBlack = new SolidColorBrush(Color.Black);
+        private readonly TextFlow log;
+        private readonly Text timeText;
+        private readonly Brush solidBlack = new SolidColorBrush(Color.Black);
 
         public ConsoleWindow()
         {
             StackPanel panel = new StackPanel();
 
-            timeText = new Text(CourierRegular10, "Embarrassing second of silence.");
-            timeText.TextAlignment = TextAlignment.Right;
-            timeText.VerticalAlignment = VerticalAlignment.Top;
-            timeText.ForeColor = ColorUtility.ColorFromRGB(255, 255, 0);
+            timeText = new Text(CourierRegular10, "Embarrassing second of silence.")
+            {
+                TextAlignment = TextAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Top,
+                ForeColor = ColorUtility.ColorFromRGB(255, 255, 0)
+            };
             panel.Children.Add(timeText);
 
-            ScrollViewer scroll = new ScrollViewer();
-            scroll.Height = SystemMetrics.ScreenHeight - CourierRegular10.Height;
-            scroll.Width = SystemMetrics.ScreenWidth;
-            scroll.ScrollingStyle = ScrollingStyle.Last;
-            scroll.Background = null;
-            scroll.LineHeight = Small.Height;
-            
-            panel.Children.Add(scroll);                        
+            ScrollViewer scroll = new ScrollViewer
+            {
+                Height = 1, // SystemMetrics.ScreenHeight - CourierRegular10.Height;
+                Width = 1, // SystemMetrics.ScreenWidth;
+                ScrollingStyle = ScrollingStyle.Last,
+                Background = null,
+                LineHeight = Small.Height
+            };
 
-            log = new TextFlow();
-            log.HorizontalAlignment = HorizontalAlignment.Left;
-            log.VerticalAlignment = VerticalAlignment.Top;
+            panel.Children.Add(scroll);
+
+            log = new TextFlow
+            {
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Top
+            };
             scroll.Child = log;            
 
             Background = solidBlack;
