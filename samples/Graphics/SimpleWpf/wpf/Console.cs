@@ -27,18 +27,18 @@ namespace UAM.InformatiX.SPOT
         //}
 
 //        public static void WriteLine(string text, bool timeStamp)
-        public static void WriteLine(string text)
-        {
-            while (_consoleWindow == null)
-                Thread.Sleep(10);
+        //public static void WriteLine(string text)
+        //{
+        //    while (_consoleWindow == null)
+        //        Thread.Sleep(10);
 
-            //if (timeStamp)
-            //{
-            //    text = (UseRelativeTime ? (Utility.GetMachineTime() - Utility.GetLastBootTime()) : Utility.GetMachineTime()) + " " + text;
-            //}
-            lock (_consoleWindow)
-                _consoleWindow.WriteLine(text);
-        }
+        //    //if (timeStamp)
+        //    //{
+        //    //    text = (UseRelativeTime ? (Utility.GetMachineTime() - Utility.GetLastBootTime()) : Utility.GetMachineTime()) + " " + text;
+        //    //}
+        //    //lock (_consoleWindow)
+        //    //    _consoleWindow.WriteLine(text);
+        //}
 
         public static Thread Thread;
         public static bool ReportTimeStamps;

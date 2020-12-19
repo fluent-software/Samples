@@ -59,10 +59,10 @@ namespace nanoFramework.UI.Console
             //    null, ExtendedTimer.TimeEvents.Second);
         }
 
-        public void WriteLine(string s)
-        {
-            //Dispatcher.BeginInvoke( new EventHandler(InvokedWriteLine), new object[] { s, EventArgs.Empty });
-        }
+        //public void WriteLine(string s)
+        //{
+        //    //Dispatcher.BeginInvoke( new EventHandler(InvokedWriteLine), new object[] { s, EventArgs.Empty });
+        //}
 
         private void InvokedWriteLine(object text, EventArgs e)
         {
