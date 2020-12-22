@@ -30,8 +30,8 @@ namespace nanoFramework.UI.Console
 
             ScrollViewer scroll = new ScrollViewer
             {
-                Height = 1, // SystemMetrics.ScreenHeight - CourierRegular10.Height;
-                Width = 1, // SystemMetrics.ScreenWidth;
+                Height = DisplayControl.ScreenHeight - CourierRegular10.Height,
+                Width = DisplayControl.ScreenWidth,
                 ScrollingStyle = ScrollingStyle.Last,
                 Background = null,
                 LineHeight = Small.Height

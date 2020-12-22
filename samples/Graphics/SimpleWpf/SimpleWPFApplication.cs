@@ -33,8 +33,8 @@ namespace SimpleWPF
 
             // Make the window visible and the size of the LCD
             this.Visibility = Visibility.Visible;
-            this.Width = 1; // SystemMetrics.ScreenWidth;
-            this.Height = 1; // SystemMetrics.ScreenHeight;
+            this.Width = DisplayControl.ScreenWidth;
+            this.Height = DisplayControl.ScreenHeight;
             Buttons.Focus(this); // Set focus to this window
         }
 
