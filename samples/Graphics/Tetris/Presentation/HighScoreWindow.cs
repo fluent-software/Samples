@@ -86,8 +86,8 @@ namespace Tetris.Presentation
         /// </summary>
         private void InitializeComponents()
         {
-            this.Width = SystemMetrics.ScreenWidth;
-            this.Height = SystemMetrics.ScreenHeight;
+            this.Width = DisplayControl.ScreenWidth;
+            this.Height = DisplayControl.ScreenHeight;
             this.Background = new SolidColorBrush(Color.Black);
 
             #region Caption
