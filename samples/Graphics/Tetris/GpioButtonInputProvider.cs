@@ -14,12 +14,12 @@ namespace Tetris
     {
         public readonly Dispatcher Dispatcher;
 
-        private ButtonPad[] buttons;
-        private ReportInputCallback callback;
-        private InputProviderSite site;
-        private PresentationSource source;
+        private readonly ButtonPad[] buttons;
+        private readonly ReportInputCallback callback;
+        private readonly InputProviderSite site;
+        private readonly PresentationSource source;
         private readonly GpioController Gpio = GpioController.GetDefault();
-        private ButtonDevice buttonDevice = null;
+        private readonly ButtonDevice buttonDevice = null;
 
 
         private delegate bool ReportInputCallback(InputReport inputReport);
@@ -64,8 +64,8 @@ namespace Tetris
         // for user input. This class represents the button pad.
         internal class ButtonPad
         {
-            private Button button;
-            private GpioButtonInputProvider sink;
+            private readonly Button button;
+            private readonly GpioButtonInputProvider sink;
 
             // Construct the object. Set this class to handle the emulated 
             // hardware's button interrupts.

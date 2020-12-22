@@ -33,7 +33,7 @@ namespace Tetris.Presentation
         /// <summary>
         /// Allowed chars in names
         /// </summary>
-        private char[] allowedChars = new char[26] { 'A', 'B', 'C', 'D', 
+        private readonly char[] allowedChars = new char[26] { 'A', 'B', 'C', 'D', 
                                                      'E', 'F', 'G', 'H',
                                                      'I', 'J', 'K', 'L', 
                                                      'M', 'N', 'O', 'P', 
@@ -42,10 +42,10 @@ namespace Tetris.Presentation
                                                      'Y', 'Z'};
 
         private int selectedItem, selectedLetter;
-        private int[] letterIndexes;
+        private readonly int[] letterIndexes;
         private bool editMode;
 
-        TetrisApp parentApp;
+        readonly TetrisApp parentApp;
         ListBox scoreListBox;
         TextFlow hintTextFlow;
 
@@ -91,22 +91,28 @@ namespace Tetris.Presentation
             this.Background = new SolidColorBrush(Color.Black);
 
             #region Caption
-            Text caption = new Text(nfResource.GetString(nfResource.StringResources.HighScore));
-            caption.Font = nfResource.GetFont(nfResource.FontResources.Consolas23);
-            caption.ForeColor = Color.Red;
+            Text caption = new Text(nfResource.GetString(nfResource.StringResources.HighScore))
+            {
+                Font = nfResource.GetFont(nfResource.FontResources.Consolas23),
+                ForeColor = Color.Red
+            };
             caption.SetMargin(0, 10, 0, 15);            
-            caption.TextAlignment = TextAlignment.Center;            
+            caption.TextAlignment = TextAlignment.Center;
             #endregion
 
             #region Score ListBox
-            scoreListBox = new ListBox();
-            scoreListBox.Background = this.Background;
-            scoreListBox.HorizontalAlignment = HorizontalAlignment.Center;
+            scoreListBox = new ListBox
+            {
+                Background = this.Background,
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
 
             foreach (ScoreRecord scoreRecord in parentApp.HighScore.Table)
             {
-                ScoreItem scoreItem = new ScoreItem(scoreRecord.Name, scoreRecord.Score);                
-                scoreItem.Background = scoreListBox.Background;                
+                ScoreItem scoreItem = new ScoreItem(scoreRecord.Name, scoreRecord.Score)
+                {
+                    Background = scoreListBox.Background
+                };
                 scoreListBox.Items.Add(scoreItem);
             }
             #endregion
@@ -118,8 +124,10 @@ namespace Tetris.Presentation
             UpdateHint();
             #endregion
 
-            StackPanel mainStack = new StackPanel(Orientation.Vertical);            
-            mainStack.HorizontalAlignment = HorizontalAlignment.Center;
+            StackPanel mainStack = new StackPanel(Orientation.Vertical)
+            {
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
             mainStack.Children.Add(caption);
             mainStack.Children.Add(scoreListBox);
             mainStack.Children.Add(hintTextFlow);

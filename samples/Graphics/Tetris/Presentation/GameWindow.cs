@@ -26,10 +26,10 @@ namespace Tetris.Presentation
     /// </summary>
     public class GameWindow : Window
     {
-        GameUniverse gameUniverse = new GameUniverse();
+        readonly GameUniverse gameUniverse = new GameUniverse();
         UniverseView universeView;
         DispatcherTimer gameTimer;
-        TetrisApp parentApp;
+        readonly TetrisApp parentApp;
 
         /// <summary>
         /// Close window delegate
@@ -64,8 +64,10 @@ namespace Tetris.Presentation
             gameUniverse.StepUniverse();
 
             // Start tick timer
-            gameTimer = new DispatcherTimer(this.Dispatcher);
-            gameTimer.Interval = new TimeSpan(0, 0, 0, 0, gameUniverse.Statistics.Interval);
+            gameTimer = new DispatcherTimer(this.Dispatcher)
+            {
+                Interval = new TimeSpan(0, 0, 0, 0, gameUniverse.Statistics.Interval)
+            };
             gameTimer.Tick += new EventHandler(GameTimer_Tick);
             gameTimer.Start();
         }
@@ -81,11 +83,13 @@ namespace Tetris.Presentation
 
             // Tetris grid
             universeView = new UniverseView(gameUniverse);
-            
+
             // Stack panel with next block and score
-            GradientStackPanel statusStack = new GradientStackPanel(Orientation.Vertical, Color.Black, Color.White);
-            statusStack.Width = this.Width - universeView.Width;
-            statusStack.Height = this.Height;
+            GradientStackPanel statusStack = new GradientStackPanel(Orientation.Vertical, Color.Black, Color.White)
+            {
+                Width = this.Width - universeView.Width,
+                Height = this.Height
+            };
 
             // Next block control
             NextBlockView nextBlockView = new NextBlockView(gameUniverse);
