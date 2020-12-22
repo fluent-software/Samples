@@ -9,11 +9,10 @@ namespace Primitives
     {
         public static void Main()
         {
-            DisplayControl dc = new DisplayControl();
-            int height = dc.ShorterSide;
-            int width = dc.LongerSide;
+            int height = DisplayControl.ShorterSide;
+            int width = DisplayControl.LongerSide;
             int delayBetween = 1100;
-            DisplayOrientation orientation = (DisplayOrientation)dc.Orientation;
+            DisplayOrientation orientation = (DisplayOrientation)DisplayControl.Orientation;
 
             Bitmap fullScreenBitmap = new Bitmap(width, height);    // Use this bitmap as our buffered output to the screen.
             fullScreenBitmap.Clear();
